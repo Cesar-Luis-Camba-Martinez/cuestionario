@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario: Gestión del conocimiento y redes educativas</title>
+  <link rel="stylesheet" href="cuestionario.css">
+</head>
+<body>
+  <header class="encabezado">
+    <p class="institucion">Universidad de Guayaquil · Grupo #4</p>
+    <h1>Gestión del conocimiento y redes educativas</h1>
+    <p class="subtitulo">Cuestionario de opción múltiple · 10 preguntas</p>
+  </header>
+
+  <main class="contenedor">
+    <div class="progreso">
+      <div class="progreso-barra" id="barra"></div>
+    </div>
+    <p class="contador" id="contador"></p>
+
+    <section class="tarjeta" id="tarjeta">
+      <p class="numero-pregunta" id="numeroPregunta"></p>
+      <h2 class="enunciado" id="enunciado"></h2>
+      <div class="opciones" id="opciones"></div>
+      <div class="retroalimentacion" id="retroalimentacion" hidden></div>
+
+      <div class="acciones">
+        <button class="btn btn-secundario" id="btnAnterior">Anterior</button>
+        <button class="btn btn-primario" id="btnVerificar">Confirmar respuesta</button>
+        <button class="btn btn-secundario" id="btnSiguiente" hidden>Siguiente</button>
+      </div>
+    </section>
+
+    <section class="resultados" id="resultados" hidden>
+      <h2>Resultado final</h2>
+      <p class="puntaje" id="puntaje"></p>
+      <p class="mensaje-final" id="mensajeFinal"></p>
+      <div class="resumen" id="resumen"></div>
+      <button class="btn btn-primario" id="btnReiniciar">Reiniciar cuestionario</button>
+    </section>
+  </main>
+
+  <script>
+    const preguntas = [
+      {
+        enunciado: "Una institución educativa implementa un repositorio digital de planificaciones, pero los docentes siguen sin usarlo porque las mejores estrategias didácticas se transmiten solo en conversaciones informales entre colegas. Desde la perspectiva de los tipos de conocimiento, ¿cuál es el problema de fondo?",
+        opciones: [
+          "El conocimiento explícito no puede almacenarse en repositorios digitales.",
+          "El conocimiento tácito no se ha capturado ni validado para convertirse en explícito.",
+          "Los docentes carecen de conocimiento pedagógico formal.",
+          "El repositorio debería contener únicamente rúbricas de evaluación."
+        ],
+        correcta: 1,
+        explicacion: "El saber tácito, transmitido en conversaciones informales, no ha pasado por el proceso de captura, análisis, validación y normalización que lo haría explícito (diapositiva 5)."
+      },
+      {
+        enunciado: "Según el modelo de ciclo de gestión del conocimiento presentado en la diapositiva 4, ¿qué fase debería ejecutarse inmediatamente después de «Filtrar conocimiento» si una institución quiere que sus buenas prácticas lleguen a nuevos docentes?",
+        opciones: [
+          "Crear conocimiento",
+          "Seleccionar conocimiento",
+          "Compartir conocimiento",
+          "Organizar conocimiento"
+        ],
+        correcta: 2,
+        explicacion: "En la secuencia del ciclo, tras filtrar viene compartir, la fase que permite que el conocimiento llegue a otras personas (diapositiva 4)."
+      },
+      {
+        enunciado: "Una directiva argumenta que, como el conocimiento institucional está «guardado» en documentos y en la nube, la institución ya no corre riesgo de perderlo cuando rota el personal docente. ¿Qué limitación de este argumento señala con mayor precisión el contenido de la presentación?",
+        opciones: [
+          "Los respaldos en la nube no garantizan accesibilidad a largo plazo.",
+          "La digitalización no preserva la memoria institucional, que depende del saber tácito y de las prácticas compartidas que no están documentadas.",
+          "Los repositorios no pueden clasificarse mediante taxonomías.",
+          "La rotación docente solo afecta a los estudiantes, no al conocimiento institucional."
+        ],
+        correcta: 1,
+        explicacion: "La presentación subraya que la memoria institucional depende de buenas prácticas y de saberes que pueden no estar documentados. La digitalización por sí sola no la preserva (diapositiva 9)."
+      },
+      {
+        enunciado: "En el análisis de las redes educativas, se afirma que su continuidad «depende muchas veces de personas concretas y no de acuerdos formales». ¿Qué implicación estratégica se deriva directamente de esta afirmación?",
+        opciones: [
+          "Las redes son más sostenibles cuando se basan en el liderazgo individual.",
+          "Conviene articular las redes con lineamientos curriculares y programas de formación continua para evitar que dependan solo de iniciativas aisladas.",
+          "Las redes deben organizarse exclusivamente de forma jerárquica.",
+          "Las redes no requieren respaldo institucional si cuentan con buenos docentes."
+        ],
+        correcta: 1,
+        explicacion: "Si la continuidad depende de personas y no de acuerdos formales, la solución es anclar la red en marcos existentes que le den sostenibilidad (diapositiva 18)."
+      },
+      {
+        enunciado: "Una red educativa regional quiere evaluar si su colaboración mejora el aprendizaje de los estudiantes. ¿Por qué resulta especialmente difícil medir este impacto, según el análisis presentado?",
+        opciones: [
+          "Porque los docentes no registran sus prácticas en ningún formato.",
+          "Porque la conectividad impide recopilar datos en línea.",
+          "Porque el impacto sobre el aprendizaje es complejo de medir, al combinarse con factores como la escasez de tiempo docente y las diferencias de infraestructura.",
+          "Porque las redes educativas solo se organizan alrededor de temas no académicos."
+        ],
+        correcta: 2,
+        explicacion: "La diapositiva 18 identifica la dificultad de medir el impacto real sobre el aprendizaje, junto con limitaciones de tiempo e infraestructura."
+      },
+      {
+        enunciado: "Una comunidad de docentes se reúne para analizar sus clases, compartir estrategias y resolver problemas concretos de aula, aunque no necesariamente comparten el objetivo de formarse como aprendices. Según la diapositiva 20, ¿qué tipo de comunidad describe mejor esta situación y cuál es su objetivo central?",
+        opciones: [
+          "Comunidad de aprendizaje, cuyo objetivo es aprender mediante la reflexión conjunta.",
+          "Comunidad de práctica, cuyo objetivo es mejorar la práctica a partir de experiencias y soluciones compartidas.",
+          "Comunidad de aprendizaje, cuyo objetivo es el intercambio de ideas teóricas.",
+          "Red educativa temática, cuyo objetivo es la inclusión."
+        ],
+        correcta: 1,
+        explicacion: "La diapositiva 20 define las comunidades de práctica como grupos que comparten una actividad o profesión y aprenden de la experiencia, con el objetivo de mejorar la práctica."
+      },
+      {
+        enunciado: "Un sistema LMS registra que los estudiantes de un curso acceden a los materiales, pero el docente quiere saber si el aprendizaje autónomo se está produciendo realmente. ¿Qué funcionalidad de los LMS, según la presentación, responde mejor a esta necesidad?",
+        opciones: [
+          "Gestión de contenidos",
+          "Comunicación",
+          "Evaluación y seguimiento",
+          "Flexibilidad de acceso"
+        ],
+        correcta: 2,
+        explicacion: "La diapositiva 16 incluye la evaluación y el seguimiento entre las características principales de los LMS, que son las funciones que permiten verificar el progreso real del estudiante."
+      },
+      {
+        enunciado: "La presentación sostiene que «la innovación no se decreta: se cultiva». ¿Cuál de los siguientes escenarios es coherente con los tres rasgos de una cultura que favorece la innovación educativa?",
+        opciones: [
+          "Un directivo impone por resolución el uso de realidad aumentada en todas las asignaturas, sin consulta previa.",
+          "Los docentes prueban nuevas herramientas, reconocen abiertamente cuando una clase salió mal y disponen de tiempo acordado para planificar en equipo.",
+          "Cada docente diseña su planificación de forma aislada para evitar conflictos con sus colegas.",
+          "La institución sanciona los errores pedagógicos para mantener la calidad de la enseñanza."
+        ],
+        correcta: 1,
+        explicacion: "La diapositiva 25 señala tres rasgos: seguridad psicológica para probar cosas nuevas, tiempos compartidos para planificar en equipo y una forma sistemática de aprender de lo que se hace."
+      },
+      {
+        enunciado: "En la presentación sobre la cultura organizacional, se señala que muchas veces «no está escrita en ningún documento, pero orienta el comportamiento diario más que el reglamento». ¿Qué implicación tiene esta afirmación para un proceso de gestión del conocimiento que busque transformar la cultura de una escuela?",
+        opciones: [
+          "Basta con modificar el reglamento institucional para cambiar la cultura.",
+          "Las normas escritas son irrelevantes para la gestión del conocimiento.",
+          "Es necesario intervenir en las prácticas, valores y señales implícitas (qué se premia y qué se tolera), no solo en los documentos formales.",
+          "La cultura organizacional solo puede medirse mediante encuestas cuantitativas."
+        ],
+        correcta: 2,
+        explicacion: "La diapositiva 25 describe la cultura como el modo habitual de hacer las cosas, definido por lo que se premia, se tolera y nadie se atreve a cuestionar, más que por lo escrito."
+      },
+      {
+        enunciado: "Un equipo directivo aplica la «Idea 4: Aprendizaje continuo» de la diapositiva 23 y, al cerrar cada unidad, revisa qué funcionó. Sin embargo, los docentes temen reportar fracasos porque no existe confianza para admitirlos. ¿Qué elemento de la cultura organizacional está faltando para que la práctica sea efectiva?",
+        opciones: [
+          "Liderazgo compartido, porque las decisiones no se toman con participación de los docentes.",
+          "Experimentación con tecnología, porque no se usan herramientas digitales.",
+          "Seguridad psicológica para probar cosas nuevas y reconocer errores sin temor a sanciones.",
+          "Colaboración docente formal, mediante la planificación conjunta de clases."
+        ],
+        correcta: 2,
+        explicacion: "La seguridad psicológica es un rasgo clave de la cultura que favorece la innovación (diapositiva 25). Sin ella, el aprendizaje continuo no puede practicarse, porque los errores se ocultan en lugar de analizarse (diapositivas 23 y 25)."
+      }
+    ];
+
+    const letras = ["a", "b", "c", "d"];
+    let indice = 0;
+    const respuestas = new Array(preguntas.length).fill(null);
+    let verificadas = new Array(preguntas.length).fill(false);
+
+    const el = {
+      barra: document.getElementById("barra"),
+      contador: document.getElementById("contador"),
+      tarjeta: document.getElementById("tarjeta"),
+      numero: document.getElementById("numeroPregunta"),
+      enunciado: document.getElementById("enunciado"),
+      opciones: document.getElementById("opciones"),
+      retro: document.getElementById("retroalimentacion"),
+      anterior: document.getElementById("btnAnterior"),
+      verificar: document.getElementById("btnVerificar"),
+      siguiente: document.getElementById("btnSiguiente"),
+      resultados: document.getElementById("resultados"),
+      puntaje: document.getElementById("puntaje"),
+      mensajeFinal: document.getElementById("mensajeFinal"),
+      resumen: document.getElementById("resumen"),
+      reiniciar: document.getElementById("btnReiniciar")
+    };
+
+    function renderPregunta() {
+      const p = preguntas[indice];
+      el.numero.textContent = "Pregunta " + (indice + 1);
+      el.enunciado.textContent = p.enunciado;
+      el.contador.textContent = (indice + 1) + " de " + preguntas.length;
+      el.barra.style.width = ((indice + 1) / preguntas.length * 100) + "%";
+
+      el.opciones.innerHTML = "";
+      p.opciones.forEach((texto, i) => {
+        const btn = document.createElement("button");
+        btn.className = "opcion";
+        btn.type = "button";
+        btn.innerHTML = '<span class="letra">' + letras[i] + ")</span> " + texto;
+        if (verificadas[indice]) btn.disabled = true;
+        if (respuestas[indice] === i) btn.classList.add("seleccionada");
+        if (verificadas[indice]) {
+          if (i === p.correcta) btn.classList.add("correcta");
+          else if (respuestas[indice] === i) btn.classList.add("incorrecta");
+        }
+        btn.addEventListener("click", () => {
+          if (verificadas[indice]) return;
+          respuestas[indice] = i;
+          renderPregunta();
+        });
+        el.opciones.appendChild(btn);
+      });
+
+      if (verificadas[indice]) {
+        const acierto = respuestas[indice] === p.correcta;
+        el.retro.hidden = false;
+        el.retro.className = "retroalimentacion " + (acierto ? "ok" : "error");
+        el.retro.innerHTML = "<strong>" + (acierto ? "Respuesta correcta." : "Respuesta incorrecta. La correcta es la " + letras[p.correcta] + ").") + "</strong> " + p.explicacion;
+        el.verificar.hidden = true;
+      } else {
+        el.retro.hidden = true;
+        el.verificar.hidden = false;
+        el.verificar.disabled = respuestas[indice] === null;
+      }
+
+      el.anterior.disabled = indice === 0;
+      el.siguiente.hidden = !verificadas[indice];
+      el.siguiente.textContent = indice === preguntas.length - 1 ? "Ver resultado" : "Siguiente";
+    }
+
+    function mostrarResultados() {
+      el.tarjeta.hidden = true;
+      el.barra.style.width = "100%";
+      el.contador.textContent = "Completado";
+      el.resultados.hidden = false;
+
+      let aciertos = 0;
+      el.resumen.innerHTML = "";
+      preguntas.forEach((p, i) => {
+        const ok = respuestas[i] === p.correcta;
+        if (ok) aciertos++;
+        const fila = document.createElement("div");
+        fila.className = "fila-resumen " + (ok ? "ok" : "error");
+        fila.textContent = "Pregunta " + (i + 1) + ": " + (ok ? "correcta" : "incorrecta") +
+          (ok ? "" : " (correcta: " + letras[p.correcta] + ")");
+        el.resumen.appendChild(fila);
+      });
+
+      el.puntaje.textContent = aciertos + " de " + preguntas.length + " respuestas correctas";
+      const porcentaje = aciertos / preguntas.length;
+      el.mensajeFinal.textContent = porcentaje >= 0.9 ? "Excelente dominio del contenido."
+        : porcentaje >= 0.7 ? "Buen dominio. Revisa las preguntas incorrectas con sus diapositivas."
+        : "Conviene repasar las diapositivas correspondientes antes de continuar.";
+    }
+
+    el.verificar.addEventListener("click", () => {
+      verificadas[indice] = true;
+      renderPregunta();
+    });
+
+    el.siguiente.addEventListener("click", () => {
+      if (indice === preguntas.length - 1) {
+        mostrarResultados();
+      } else {
+        indice++;
+        renderPregunta();
+      }
+    });
+
+    el.anterior.addEventListener("click", () => {
+      if (indice > 0) {
+        indice--;
+        renderPregunta();
+      }
+    });
+
+    el.reiniciar.addEventListener("click", () => {
+      indice = 0;
+      respuestas.fill(null);
+      verificadas = new Array(preguntas.length).fill(false);
+      el.resultados.hidden = true;
+      el.tarjeta.hidden = false;
+      renderPregunta();
+    });
+
+    renderPregunta();
+  </script>
+</body>
+</html>

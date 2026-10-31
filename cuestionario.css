@@ -1,0 +1,291 @@
+:root {
+  --azul-oscuro: #0d3b66;
+  --azul: #2f6fb3;
+  --azul-claro: #dbeafe;
+  --fondo: #f3f7fb;
+  --texto: #1f2933;
+  --gris: #6b7280;
+  --verde: #1b7f4b;
+  --verde-claro: #d9f5e5;
+  --rojo: #b42318;
+  --rojo-claro: #fde4e1;
+  --blanco: #ffffff;
+  --radio: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.encabezado {
+  background: linear-gradient(135deg, var(--azul-oscuro), var(--azul));
+  color: var(--blanco);
+  padding: 2rem 1.5rem 2.5rem;
+  text-align: center;
+}
+
+.institucion {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.encabezado h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.subtitulo {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.contenedor {
+  max-width: 760px;
+  margin: -1.5rem auto 3rem;
+  padding: 0 1rem;
+}
+
+.progreso {
+  height: 8px;
+  background: #d6e2ef;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progreso-barra {
+  height: 100%;
+  width: 0;
+  background: var(--azul);
+  transition: width 0.3s ease;
+}
+
+.contador {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--gris);
+  margin: 0.5rem 0 1rem;
+}
+
+.tarjeta,
+.resultados {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 1.75rem;
+  box-shadow: 0 4px 16px rgba(13, 59, 102, 0.08);
+}
+
+.numero-pregunta {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--azul);
+}
+
+.enunciado {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  font-size: 0.97rem;
+  color: var(--texto);
+  background: var(--blanco);
+  border: 2px solid #d3dce6;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.opcion:hover:not(:disabled) {
+  border-color: var(--azul);
+  background: #f5f9ff;
+}
+
+.opcion:focus-visible {
+  outline: 3px solid var(--azul-claro);
+  outline-offset: 2px;
+}
+
+.opcion .letra {
+  font-weight: 700;
+  color: var(--azul);
+  min-width: 1.5rem;
+}
+
+.opcion.seleccionada {
+  border-color: var(--azul);
+  background: var(--azul-claro);
+}
+
+.opcion.correcta {
+  border-color: var(--verde);
+  background: var(--verde-claro);
+}
+
+.opcion.incorrecta {
+  border-color: var(--rojo);
+  background: var(--rojo-claro);
+}
+
+.opcion:disabled {
+  cursor: default;
+}
+
+.retroalimentacion {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.retroalimentacion.ok {
+  background: var(--verde-claro);
+  color: #114f2e;
+}
+
+.retroalimentacion.error {
+  background: var(--rojo-claro);
+  color: #7a1b13;
+}
+
+.acciones {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.acciones .btn:first-child {
+  margin-right: auto;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--azul-claro);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primario {
+  background: var(--azul);
+  color: var(--blanco);
+}
+
+.btn-primario:hover:not(:disabled) {
+  background: var(--azul-oscuro);
+}
+
+.btn-secundario {
+  background: var(--blanco);
+  color: var(--azul);
+  border-color: var(--azul);
+}
+
+.btn-secundario:hover:not(:disabled) {
+  background: var(--azul-claro);
+}
+
+.resultados h2 {
+  margin-top: 0;
+  color: var(--azul-oscuro);
+}
+
+.puntaje {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--azul);
+  margin: 0.25rem 0;
+}
+
+.mensaje-final {
+  color: var(--gris);
+  margin-top: 0;
+}
+
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.fila-resumen {
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.93rem;
+}
+
+.fila-resumen.ok {
+  background: var(--verde-claro);
+  color: #114f2e;
+}
+
+.fila-resumen.error {
+  background: var(--rojo-claro);
+  color: #7a1b13;
+}
+
+@media (max-width: 520px) {
+  .tarjeta,
+  .resultados {
+    padding: 1.25rem;
+  }
+
+  .acciones {
+    flex-direction: column-reverse;
+  }
+
+  .acciones .btn {
+    width: 100%;
+  }
+
+  .acciones .btn:first-child {
+    margin-right: 0;
+  }
+}
